@@ -4,4 +4,5 @@
 ## GitHub Pages
 
 
-[![Build status](https://ci.appveyor.com/api/projects/status/0au1sefmeyhtyi3y?svg=true)](https://ci.appveyor.com/project/Dolinin2021/sec-6-ahj)
+[![Build status](https://ci.appveyor.com/api/projects/status/anfay507hbjoqrtn?svg=true)](https://ci.appveyor.com/project/Dolinin2021/sect-6-ahj-npm)
+
