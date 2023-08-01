@@ -1,54 +1,40 @@
 import dragNdrop from './dragNdrop';
 
-export default function addTask() {
+export default function addTask(elem) {
+  const addBtn = elem.target;
+  const parent = addBtn.closest('.boards__item');
+  const addItemBtn = parent.querySelector('.add__item-btn');
+  const textarea = parent.querySelector('.textarea');
+  const form = parent.querySelector('.form');
+  const cancelBtn = parent.querySelector('.cancel__item-btn');
   let value;
 
-  function clear(textarea, form, btn) {
+  form.style.display = 'block';
+  addBtn.style.display = 'none';
+  addItemBtn.style.display = 'none';
+
+  function textareaInput() {
+    value = textarea.value;
+    if (value) {
+      addItemBtn.style.display = 'block';
+    } else {
+      addItemBtn.style.display = 'none';
+    }
+  }
+
+  textarea.addEventListener('input', textareaInput);
+
+  function clear() {
     textarea.value = '';
     value = '';
     form.style.display = 'none';
-    btn.style.display = 'flex';
+    addBtn.style.display = 'flex';
   }
 
-  btn.addEventListener('click', (e) => {
-    const target = e.target;
-    const parent = target.closest('.boards__item');
-    const addBtn = parent.querySelector('.add__item-btn');
-    const textarea = parent.querySelector('.textarea');
-    const form = parent.querySelector('.form');
-    const btn = parent.querySelector('.add__btn');
+  cancelBtn.addEventListener('click', clear);
 
-    form.style.display = 'block';
-    btn.style.display = 'none';
-    addBtn.style.display = 'none';
-
-    textarea.addEventListener('input', (e) => {
-      value = e.target.value;
-      if (value) {
-        addBtn.style.display = 'block';
-      } else {
-        addBtn.style.display = 'none';
-      }
-    });
-  });
-
-  cancelBtn.addEventListener('click', (e) => {
-    const target = e.target;
-    const parent = target.closest('.boards__item');
-    const textarea = parent.querySelector('.textarea');
-    const form = parent.querySelector('.form');
-    const btn = parent.querySelector('.add__btn');
-    clear(textarea, form, btn);
-  });
-
-  addBtn.addEventListener('click', (e) => {
-    const target = e.target;
-    const parent = target.closest('.boards__item');
+  function addItemList() {
     const list = parent.querySelector('.list');
-    const textarea = parent.querySelector('.textarea');
-    const form = parent.querySelector('.form');
-    const btn = parent.querySelector('.add__btn');
-
     const newItem = document.createElement('div');
     newItem.classList.add('list__item');
     newItem.draggable = true;
@@ -56,9 +42,13 @@ export default function addTask() {
     list.append(newItem);
 
     form.style.display = 'none';
-    btn.style.display = 'flex';
-    clear(textarea, form, btn);
+    addBtn.style.display = 'flex';
 
+    clear();
     dragNdrop();
-  });
+
+    addItemBtn.removeEventListener('click', addItemList);
+  }
+
+  addItemBtn.addEventListener('click', addItemList);
 }

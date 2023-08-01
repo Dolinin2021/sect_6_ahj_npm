@@ -4,8 +4,11 @@ import changeTitle from './changeTitle';
 import addBoard from './addBoard';
 
 const button = document.querySelector('.button');
+const arrAddBtn = document.querySelectorAll('.add__btn');
 
-addTask();
+arrAddBtn.forEach((elem) => {
+  elem.addEventListener('click', (e) => addTask(e));
+});
 
 button.addEventListener('click', addBoard);
 
