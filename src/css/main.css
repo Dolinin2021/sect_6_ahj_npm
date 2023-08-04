@@ -134,3 +134,20 @@
   border-radius: 3px;
   font-size: 14px;
 }
+
+.popup-close {
+  position: relative;
+  right: -24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  cursor: pointer;	
+  background-image: url("../svg/form-x.svg");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: red;
+  color: black;
+  z-index: 999;
+}

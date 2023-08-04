@@ -29,16 +29,21 @@ export default function addTask(elem) {
     value = '';
     form.style.display = 'none';
     addBtn.style.display = 'flex';
+    // addItemBtn.removeEventListener('click', addItemList);
   }
 
-  cancelBtn.addEventListener('click', clear);
+  cancelBtn.addEventListener('click', clear, { once: true });
 
   function addItemList() {
     const list = parent.querySelector('.list');
     const newItem = document.createElement('div');
+    const popupClose = document.createElement('button');
+    popupClose.className = 'popup-close';
+    popupClose.type = 'button';
     newItem.classList.add('list__item');
     newItem.draggable = true;
     newItem.textContent = value;
+    newItem.appendChild(popupClose);
     list.append(newItem);
 
     form.style.display = 'none';
@@ -46,9 +51,7 @@ export default function addTask(elem) {
 
     clear();
     dragNdrop();
-
-    addItemBtn.removeEventListener('click', addItemList);
   }
 
-  addItemBtn.addEventListener('click', addItemList);
+  addItemBtn.addEventListener('click', addItemList, { once: true });
 }

@@ -3,6 +3,7 @@ let dragItem = null;
 export default function dragNdrop() {
   const listItems = document.querySelectorAll('.list__item');
   const lists = document.querySelectorAll('.list');
+  const popupClose = document.querySelectorAll('.popup-close');
 
   function dragstart(e) {
     dragItem = e.target;
@@ -31,7 +32,7 @@ export default function dragNdrop() {
 
     item.addEventListener('dragend', dragend);
 
-    item.addEventListener('dblclick', () => {
+    popupClose[i].addEventListener('click', () => {
       item.remove();
     });
 

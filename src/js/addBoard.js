@@ -9,15 +9,19 @@ export default function addBoard() {
   board.innerHTML = `
     <span contenteditable="true" class="title">Введите название</span>
     <div class="list">
-        <div class="list__item" draggable="true">Стартовая карточка</div>
+      <div class="list__item" draggable="true">Стартовая карточка
+        <button class="popup-close" type="button"></button>
+      </div>
     </div>
+
     <div class="form">
-        <textarea class="textarea" placeholder="Введите название для этой карточки"></textarea>
-        <div class="buttons">
-            <button class="add__item-btn">Добавить</button>
-            <button class="cancel__item-btn">Отмена</button>
-        </div>
+      <textarea class="textarea" placeholder="Введите название для этой карточки"></textarea>
+      <div class="buttons">
+        <button class="add__item-btn">Добавить</button>
+        <button class="cancel__item-btn">Отмена</button>
+      </div>
     </div>
+    
     <div class="add__btn"> <span> + </span> Добавить карточку </div>
     `;
   boards.append(board);
