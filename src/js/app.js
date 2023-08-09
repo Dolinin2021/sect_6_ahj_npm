@@ -1,17 +1,31 @@
-import dragNdrop from './dragNdrop';
-import addTask from './addTask';
 import changeTitle from './changeTitle';
-import addBoard from './addBoard';
+import Controller from './controller';
+import Interface from './interface';
 
-const button = document.querySelector('.button');
 const arrAddBtn = document.querySelectorAll('.add__btn');
+const controller = new Controller(document.querySelector('.col'));
+const boards = document.querySelector('.boards');
 
 arrAddBtn.forEach((elem) => {
-  elem.addEventListener('click', (e) => addTask(e));
+  elem.addEventListener('click', (e) => {
+    const obj = new Interface(e);
+    obj.addTask();
+  });
 });
 
-button.addEventListener('click', addBoard);
+boards.addEventListener('click', (e) => {
+  let parent;
+  if (e.target.className === 'popup-close') {
+    parent = e.target.closest('.list__item');
+    if (parent) {
+      parent.remove();
+    }
+  }
+});
 
+controller.init();
 changeTitle();
 
-dragNdrop();
+document.body.addEventListener('mousedown', controller.onMouseDown);
+document.body.addEventListener('mouseup', controller.onMouseUp);
+document.body.addEventListener('mousemove', controller.onMouseMove);
