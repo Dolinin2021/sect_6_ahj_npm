@@ -40,14 +40,14 @@ export default class Card {
     const popupClose = document.createElement('button');
     popupClose.className = 'popup-close';
     popupClose.type = 'button';
-    
+
     node.classList.add('list__item');
     node.classList.add('draggable');
     node.textContent = content;
 
     node.appendChild(popupClose);
     list.appendChild(node);
-    
+
     return new Card(node);
   }
 
