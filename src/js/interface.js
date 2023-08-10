@@ -45,7 +45,7 @@ export default class Interface {
     this.popupClose.className = 'popup-close';
     this.popupClose.type = 'button';
     this.newItem.classList.add('list__item');
-    this.newItem.draggable = true;
+    this.newItem.classList.add('draggable');
     this.newItem.textContent = this.value;
     this.newItem.appendChild(this.popupClose);
     this.list.append(this.newItem);

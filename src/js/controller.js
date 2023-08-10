@@ -10,10 +10,6 @@ export default class Controller {
     this.draggingProection = null;
   }
 
-  init() {
-    this.container.append(Card.create(5).element);
-  }
-
   setDraggingElement(node) {
     this.draggingElement = new Card(node);
   }

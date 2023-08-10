@@ -23,7 +23,6 @@ boards.addEventListener('click', (e) => {
   }
 });
 
-controller.init();
 changeTitle();
 
 document.body.addEventListener('mousedown', controller.onMouseDown);
