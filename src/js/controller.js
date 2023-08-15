@@ -53,7 +53,7 @@ export default class Controller {
     const proection = this.draggingProection;
     const parent = target.closest('.list');
     if (parent) {
-      if ((target.classList.contains('draggable') && !target.classList.contains('proection')) || parent.children.length === 0 && !target.classList.contains('proection')) {
+      if ((target.classList.contains('draggable') && !target.classList.contains('proection')) || (parent.children.length === 0 && !target.classList.contains('proection'))) {
         const { y, height } = target.getBoundingClientRect();
         const appendPosition = y + height / 2 > evt.clientY ? 'beforebegin' : 'afterend';
         if (!proection) {
