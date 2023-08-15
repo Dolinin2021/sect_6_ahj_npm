@@ -16,14 +16,17 @@ export default class Controller {
   setDraggingElement(node) {
     this.draggingElement = new Card(node);
   }
+
   replaceDragging() {
     this.draggingProection.replaceWith(this.draggingElement.element);
     this.draggingElement.element.style = this.draggingElement.styles;
   }
+
   clear() {
     this.draggingElement = null;
     this.draggingProection = null;
   }
+
   onMouseDown = (evt) => {
     const { target } = evt;
     if (target.classList.contains('draggable')) {
@@ -34,12 +37,14 @@ export default class Controller {
       this.proectionAct(evt);
     }
   };
+
   onMouseUp = () => {
     if (this.draggingElement) {
       this.replaceDragging();
       this.clear();
     }
   };
+
   // Рассчёт позиции вставки проекции и вставка или удаление
   proectionAct(evt) {
     const { target } = evt;
@@ -56,6 +61,7 @@ export default class Controller {
       }
     }
   }
+
   onMouseMove = (evt) => {
     if (this.draggingElement) {
       const { pageX, pageY } = evt;
