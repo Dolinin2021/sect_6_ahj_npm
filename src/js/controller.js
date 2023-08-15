@@ -26,13 +26,16 @@ export default class Controller {
 
   onMouseDown = (evt) => {
     const { target } = evt;
-
-    if (target.classList.contains('draggable')) {
-      this.shiftX = evt.offsetX;
-      this.shiftY = evt.offsetY;
-      this.setDraggingElement(target);
-      this.draggingElement.style = `left: ${evt.pageX - this.shiftX}px; top: ${evt.pageY - this.shiftY}px;`;
-      this.proectionAct(evt);
+    const parent = target.closest('.list');
+    // console.log(parent.children);
+    if (parent) {
+      if (target.classList.contains('draggable') || parent.children.length === 0) {
+        this.shiftX = evt.offsetX;
+        this.shiftY = evt.offsetY;
+        this.setDraggingElement(target);
+        this.draggingElement.style = `left: ${evt.pageX - this.shiftX}px; top: ${evt.pageY - this.shiftY}px;`;
+        this.proectionAct(evt);
+      }
     }
   };
 
@@ -48,14 +51,17 @@ export default class Controller {
     const { target } = evt;
     const element = this.draggingElement;
     const proection = this.draggingProection;
-    if (target.classList.contains('draggable') && !target.classList.contains('proection')) {
-      const { y, height } = target.getBoundingClientRect();
-      const appendPosition = y + height / 2 > evt.clientY ? 'beforebegin' : 'afterend';
-      if (!proection) {
-        this.draggingProection = element.proection;
-      } else {
-        proection.remove();
-        target.insertAdjacentElement(appendPosition, proection);
+    const parent = target.closest('.list');
+    if (parent) {
+      if ((target.classList.contains('draggable') && !target.classList.contains('proection')) || parent.children.length === 0 && !target.classList.contains('proection')) {
+        const { y, height } = target.getBoundingClientRect();
+        const appendPosition = y + height / 2 > evt.clientY ? 'beforebegin' : 'afterend';
+        if (!proection) {
+          this.draggingProection = element.proection;
+        } else {
+          proection.remove();
+          target.insertAdjacentElement(appendPosition, proection);
+        }
       }
     }
   }
