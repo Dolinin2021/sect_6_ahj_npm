@@ -1,5 +1,4 @@
 import Card from './card';
-
 // Класс для управления всей логикой. Слушает интерфейс и реагирует на него
 export default class Controller {
   constructor(container) {
@@ -10,62 +9,53 @@ export default class Controller {
     this.draggingProection = null;
   }
 
+  init() {
+    this.container.append(Card.create(5).element);
+  }
+
   setDraggingElement(node) {
     this.draggingElement = new Card(node);
   }
-
   replaceDragging() {
     this.draggingProection.replaceWith(this.draggingElement.element);
     this.draggingElement.element.style = this.draggingElement.styles;
   }
-
   clear() {
     this.draggingElement = null;
     this.draggingProection = null;
   }
-
   onMouseDown = (evt) => {
     const { target } = evt;
-    const parent = target.closest('.list');
-    // console.log(parent.children);
-    if (parent) {
-      if (target.classList.contains('draggable') || parent.children.length === 0) {
-        this.shiftX = evt.offsetX;
-        this.shiftY = evt.offsetY;
-        this.setDraggingElement(target);
-        this.draggingElement.style = `left: ${evt.pageX - this.shiftX}px; top: ${evt.pageY - this.shiftY}px;`;
-        this.proectionAct(evt);
-      }
+    if (target.classList.contains('draggable')) {
+      this.shiftX = evt.offsetX;
+      this.shiftY = evt.offsetY;
+      this.setDraggingElement(target);
+      this.draggingElement.style = `left: ${evt.pageX - this.shiftX}px; top: ${evt.pageY - this.shiftY}px;`;
+      this.proectionAct(evt);
     }
   };
-
   onMouseUp = () => {
     if (this.draggingElement) {
       this.replaceDragging();
       this.clear();
     }
   };
-
   // Рассчёт позиции вставки проекции и вставка или удаление
   proectionAct(evt) {
     const { target } = evt;
     const element = this.draggingElement;
     const proection = this.draggingProection;
-    const parent = target.closest('.list');
-    if (parent) {
-      if ((target.classList.contains('draggable') && !target.classList.contains('proection')) || (parent.children.length === 0 && !target.classList.contains('proection'))) {
-        const { y, height } = target.getBoundingClientRect();
-        const appendPosition = y + height / 2 > evt.clientY ? 'beforebegin' : 'afterend';
-        if (!proection) {
-          this.draggingProection = element.proection;
-        } else {
-          proection.remove();
-          target.insertAdjacentElement(appendPosition, proection);
-        }
+    if (target.classList.contains('draggable') && !target.classList.contains('proection')) {
+      const { y, height } = target.getBoundingClientRect();
+      const appendPosition = y + height / 2 > evt.clientY ? 'beforebegin' : 'afterend';
+      if (!proection) {
+        this.draggingProection = element.proection;
+      } else {
+        proection.remove();
+        target.insertAdjacentElement(appendPosition, proection);
       }
     }
   }
-
   onMouseMove = (evt) => {
     if (this.draggingElement) {
       const { pageX, pageY } = evt;
