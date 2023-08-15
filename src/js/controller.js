@@ -48,6 +48,7 @@ export default class Controller {
   // Рассчёт позиции вставки проекции и вставка или удаление
   proectionAct(evt) {
     const { target } = evt;
+    console.log(target);
     const element = this.draggingElement;
     const proection = this.draggingProection;
     if (target.classList.contains('draggable') && !target.classList.contains('proection')) {
@@ -59,6 +60,10 @@ export default class Controller {
         proection.remove();
         target.insertAdjacentElement(appendPosition, proection);
       }
+    }
+    if (target.classList.contains('list') && target.children.length === 0) {
+      proection.remove();
+      target.append(proection);
     }
   }
 
